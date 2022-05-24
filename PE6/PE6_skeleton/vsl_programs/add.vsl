@@ -1,0 +1,16 @@
+def main ( a, b) 
+begin 
+  var x
+  print "a + b =", a + b
+  print "a - b =", a - b
+  print "a * b =", a * b
+  print "a / b =", a / b
+  print "a | b =", a | b
+  print "a ^ b =", a ^ b
+  print "a & b =", a & b
+  print "-a =", -a
+  print "~a =", ~a, "my friend"
+  print "(-2) is: ", 10 / (-2)
+
+  return 0
+end

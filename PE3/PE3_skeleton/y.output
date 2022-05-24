@@ -1,0 +1,1669 @@
+State 93 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: global_list
+
+    2 global_list: global
+    3            | global_list global
+
+    4 global: function
+    5       | declaration
+
+    6 statement_list: statement
+    7               | statement_list statement
+
+    8 print_list: print_item
+    9           | print_list ',' print_item
+
+   10 expression_list: expression
+   11                | expression_list ',' expression
+
+   12 variable_list: identifier
+   13              | variable_list ',' identifier
+
+   14 argument_list: expression_list
+   15              | %empty
+
+   16 parameter_list: variable_list
+   17               | %empty
+
+   18 declaration_list: declaration
+   19                 | declaration_list declaration
+
+   20 function: FUNC identifier '(' parameter_list ')' statement
+
+   21 statement: assign_statement
+   22          | return_statement
+   23          | print_statement
+   24          | if_statement
+   25          | while_statement
+   26          | null_statement
+   27          | block
+
+   28 block: OPENBLOCK declaration_list statement_list CLOSEBLOCK
+   29      | OPENBLOCK statement_list CLOSEBLOCK
+
+   30 assign_statement: identifier ':' '=' expression
+
+   31 return_statement: RETURN expression
+
+   32 print_statement: PRINT print_list
+
+   33 null_statement: CONTINUE
+
+   34 if_statement: IF relation THEN statement
+   35             | IF relation THEN statement ELSE statement
+
+   36 while_statement: WHILE relation DO statement
+
+   37 relation: expression '=' expression
+   38         | expression '<' expression
+   39         | expression '>' expression
+
+   40 expression: expression '|' expression
+   41           | expression '^' expression
+   42           | expression '&' expression
+   43           | expression LSHIFT expression
+   44           | expression RSHIFT expression
+   45           | expression '+' expression
+   46           | expression '-' expression
+   47           | expression '*' expression
+   48           | expression '/' expression
+   49           | '-' expression
+   50           | '~' expression
+   51           | '(' expression ')'
+   52           | number
+   53           | identifier
+   54           | identifier '(' argument_list ')'
+
+   55 declaration: VAR variable_list
+
+   56 print_item: expression
+   57           | string
+
+   58 identifier: IDENTIFIER
+
+   59 number: NUMBER
+
+   60 string: STRING
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '&' (38) 42
+    '(' (40) 20 51 54
+    ')' (41) 20 51 54
+    '*' (42) 47
+    '+' (43) 45
+    ',' (44) 9 11 13
+    '-' (45) 46 49
+    '/' (47) 48
+    ':' (58) 30
+    '<' (60) 38
+    '=' (61) 30 37
+    '>' (62) 39
+    '^' (94) 41
+    '|' (124) 40
+    '~' (126) 50
+    error (256)
+    LSHIFT (258) 43
+    RSHIFT (259) 44
+    UMINUS (260)
+    FUNC (261) 20
+    PRINT (262) 32
+    RETURN (263) 31
+    CONTINUE (264) 33
+    IF (265) 34 35
+    THEN (266) 34 35
+    ELSE (267) 35
+    WHILE (268) 36
+    DO (269) 36
+    OPENBLOCK (270) 28 29
+    CLOSEBLOCK (271) 28 29
+    VAR (272) 55
+    NUMBER (273) 59
+    IDENTIFIER (274) 58
+    STRING (275) 60
+
+
+Nonterminals, with rules where they appear
+
+    $accept (36)
+        on left: 0
+    program (37)
+        on left: 1
+        on right: 0
+    global_list (38)
+        on left: 2 3
+        on right: 1 3
+    global (39)
+        on left: 4 5
+        on right: 2 3
+    statement_list (40)
+        on left: 6 7
+        on right: 7 28 29
+    print_list (41)
+        on left: 8 9
+        on right: 9 32
+    expression_list (42)
+        on left: 10 11
+        on right: 11 14
+    variable_list (43)
+        on left: 12 13
+        on right: 13 16 55
+    argument_list (44)
+        on left: 14 15
+        on right: 54
+    parameter_list (45)
+        on left: 16 17
+        on right: 20
+    declaration_list (46)
+        on left: 18 19
+        on right: 19 28
+    function (47)
+        on left: 20
+        on right: 4
+    statement (48)
+        on left: 21 22 23 24 25 26 27
+        on right: 6 7 20 34 35 36
+    block (49)
+        on left: 28 29
+        on right: 27
+    assign_statement (50)
+        on left: 30
+        on right: 21
+    return_statement (51)
+        on left: 31
+        on right: 22
+    print_statement (52)
+        on left: 32
+        on right: 23
+    null_statement (53)
+        on left: 33
+        on right: 26
+    if_statement (54)
+        on left: 34 35
+        on right: 24
+    while_statement (55)
+        on left: 36
+        on right: 25
+    relation (56)
+        on left: 37 38 39
+        on right: 34 35 36
+    expression (57)
+        on left: 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54
+        on right: 10 11 30 31 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 56
+    declaration (58)
+        on left: 55
+        on right: 5 18 19
+    print_item (59)
+        on left: 56 57
+        on right: 8 9
+    identifier (60)
+        on left: 58
+        on right: 12 13 20 30 53 54
+    number (61)
+        on left: 59
+        on right: 52
+    string (62)
+        on left: 60
+        on right: 57
+
+
+State 0
+
+    0 $accept: . program $end
+
+    FUNC  shift, and go to state 1
+    VAR   shift, and go to state 2
+
+    program      go to state 3
+    global_list  go to state 4
+    global       go to state 5
+    function     go to state 6
+    declaration  go to state 7
+
+
+State 1
+
+   20 function: FUNC . identifier '(' parameter_list ')' statement
+
+    IDENTIFIER  shift, and go to state 8
+
+    identifier  go to state 9
+
+
+State 2
+
+   55 declaration: VAR . variable_list
+
+    IDENTIFIER  shift, and go to state 8
+
+    variable_list  go to state 10
+    identifier     go to state 11
+
+
+State 3
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 12
+
+
+State 4
+
+    1 program: global_list .
+    3 global_list: global_list . global
+
+    FUNC  shift, and go to state 1
+    VAR   shift, and go to state 2
+
+    $default  reduce using rule 1 (program)
+
+    global       go to state 13
+    function     go to state 6
+    declaration  go to state 7
+
+
+State 5
+
+    2 global_list: global .
+
+    $default  reduce using rule 2 (global_list)
+
+
+State 6
+
+    4 global: function .
+
+    $default  reduce using rule 4 (global)
+
+
+State 7
+
+    5 global: declaration .
+
+    $default  reduce using rule 5 (global)
+
+
+State 8
+
+   58 identifier: IDENTIFIER .
+
+    $default  reduce using rule 58 (identifier)
+
+
+State 9
+
+   20 function: FUNC identifier . '(' parameter_list ')' statement
+
+    '('  shift, and go to state 14
+
+
+State 10
+
+   13 variable_list: variable_list . ',' identifier
+   55 declaration: VAR variable_list .
+
+    ','  shift, and go to state 15
+
+    $default  reduce using rule 55 (declaration)
+
+
+State 11
+
+   12 variable_list: identifier .
+
+    $default  reduce using rule 12 (variable_list)
+
+
+State 12
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 13
+
+    3 global_list: global_list global .
+
+    $default  reduce using rule 3 (global_list)
+
+
+State 14
+
+   20 function: FUNC identifier '(' . parameter_list ')' statement
+
+    IDENTIFIER  shift, and go to state 8
+
+    $default  reduce using rule 17 (parameter_list)
+
+    variable_list   go to state 16
+    parameter_list  go to state 17
+    identifier      go to state 11
+
+
+State 15
+
+   13 variable_list: variable_list ',' . identifier
+
+    IDENTIFIER  shift, and go to state 8
+
+    identifier  go to state 18
+
+
+State 16
+
+   13 variable_list: variable_list . ',' identifier
+   16 parameter_list: variable_list .
+
+    ','  shift, and go to state 15
+
+    $default  reduce using rule 16 (parameter_list)
+
+
+State 17
+
+   20 function: FUNC identifier '(' parameter_list . ')' statement
+
+    ')'  shift, and go to state 19
+
+
+State 18
+
+   13 variable_list: variable_list ',' identifier .
+
+    $default  reduce using rule 13 (variable_list)
+
+
+State 19
+
+   20 function: FUNC identifier '(' parameter_list ')' . statement
+
+    PRINT       shift, and go to state 20
+    RETURN      shift, and go to state 21
+    CONTINUE    shift, and go to state 22
+    IF          shift, and go to state 23
+    WHILE       shift, and go to state 24
+    OPENBLOCK   shift, and go to state 25
+    IDENTIFIER  shift, and go to state 8
+
+    statement         go to state 26
+    block             go to state 27
+    assign_statement  go to state 28
+    return_statement  go to state 29
+    print_statement   go to state 30
+    null_statement    go to state 31
+    if_statement      go to state 32
+    while_statement   go to state 33
+    identifier        go to state 34
+
+
+State 20
+
+   32 print_statement: PRINT . print_list
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    STRING      shift, and go to state 38
+    '('         shift, and go to state 39
+
+    print_list  go to state 40
+    expression  go to state 41
+    print_item  go to state 42
+    identifier  go to state 43
+    number      go to state 44
+    string      go to state 45
+
+
+State 21
+
+   31 return_statement: RETURN . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 46
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 22
+
+   33 null_statement: CONTINUE .
+
+    $default  reduce using rule 33 (null_statement)
+
+
+State 23
+
+   34 if_statement: IF . relation THEN statement
+   35             | IF . relation THEN statement ELSE statement
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    relation    go to state 47
+    expression  go to state 48
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 24
+
+   36 while_statement: WHILE . relation DO statement
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    relation    go to state 49
+    expression  go to state 48
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 25
+
+   28 block: OPENBLOCK . declaration_list statement_list CLOSEBLOCK
+   29      | OPENBLOCK . statement_list CLOSEBLOCK
+
+    PRINT       shift, and go to state 20
+    RETURN      shift, and go to state 21
+    CONTINUE    shift, and go to state 22
+    IF          shift, and go to state 23
+    WHILE       shift, and go to state 24
+    OPENBLOCK   shift, and go to state 25
+    VAR         shift, and go to state 2
+    IDENTIFIER  shift, and go to state 8
+
+    statement_list    go to state 50
+    declaration_list  go to state 51
+    statement         go to state 52
+    block             go to state 27
+    assign_statement  go to state 28
+    return_statement  go to state 29
+    print_statement   go to state 30
+    null_statement    go to state 31
+    if_statement      go to state 32
+    while_statement   go to state 33
+    declaration       go to state 53
+    identifier        go to state 34
+
+
+State 26
+
+   20 function: FUNC identifier '(' parameter_list ')' statement .
+
+    $default  reduce using rule 20 (function)
+
+
+State 27
+
+   27 statement: block .
+
+    $default  reduce using rule 27 (statement)
+
+
+State 28
+
+   21 statement: assign_statement .
+
+    $default  reduce using rule 21 (statement)
+
+
+State 29
+
+   22 statement: return_statement .
+
+    $default  reduce using rule 22 (statement)
+
+
+State 30
+
+   23 statement: print_statement .
+
+    $default  reduce using rule 23 (statement)
+
+
+State 31
+
+   26 statement: null_statement .
+
+    $default  reduce using rule 26 (statement)
+
+
+State 32
+
+   24 statement: if_statement .
+
+    $default  reduce using rule 24 (statement)
+
+
+State 33
+
+   25 statement: while_statement .
+
+    $default  reduce using rule 25 (statement)
+
+
+State 34
+
+   30 assign_statement: identifier . ':' '=' expression
+
+    ':'  shift, and go to state 54
+
+
+State 35
+
+   49 expression: '-' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 55
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 36
+
+   50 expression: '~' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 56
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 37
+
+   59 number: NUMBER .
+
+    $default  reduce using rule 59 (number)
+
+
+State 38
+
+   60 string: STRING .
+
+    $default  reduce using rule 60 (string)
+
+
+State 39
+
+   51 expression: '(' . expression ')'
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 57
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 40
+
+    9 print_list: print_list . ',' print_item
+   32 print_statement: PRINT print_list .
+
+    ','  shift, and go to state 58
+
+    $default  reduce using rule 32 (print_statement)
+
+
+State 41
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+   56 print_item: expression .
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 56 (print_item)
+
+
+State 42
+
+    8 print_list: print_item .
+
+    $default  reduce using rule 8 (print_list)
+
+
+State 43
+
+   53 expression: identifier .
+   54           | identifier . '(' argument_list ')'
+
+    '('  shift, and go to state 68
+
+    $default  reduce using rule 53 (expression)
+
+
+State 44
+
+   52 expression: number .
+
+    $default  reduce using rule 52 (expression)
+
+
+State 45
+
+   57 print_item: string .
+
+    $default  reduce using rule 57 (print_item)
+
+
+State 46
+
+   31 return_statement: RETURN expression .
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 31 (return_statement)
+
+
+State 47
+
+   34 if_statement: IF relation . THEN statement
+   35             | IF relation . THEN statement ELSE statement
+
+    THEN  shift, and go to state 69
+
+
+State 48
+
+   37 relation: expression . '=' expression
+   38         | expression . '<' expression
+   39         | expression . '>' expression
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+    '='     shift, and go to state 70
+    '<'     shift, and go to state 71
+    '>'     shift, and go to state 72
+
+
+State 49
+
+   36 while_statement: WHILE relation . DO statement
+
+    DO  shift, and go to state 73
+
+
+State 50
+
+    7 statement_list: statement_list . statement
+   29 block: OPENBLOCK statement_list . CLOSEBLOCK
+
+    PRINT       shift, and go to state 20
+    RETURN      shift, and go to state 21
+    CONTINUE    shift, and go to state 22
+    IF          shift, and go to state 23
+    WHILE       shift, and go to state 24
+    OPENBLOCK   shift, and go to state 25
+    CLOSEBLOCK  shift, and go to state 74
+    IDENTIFIER  shift, and go to state 8
+
+    statement         go to state 75
+    block             go to state 27
+    assign_statement  go to state 28
+    return_statement  go to state 29
+    print_statement   go to state 30
+    null_statement    go to state 31
+    if_statement      go to state 32
+    while_statement   go to state 33
+    identifier        go to state 34
+
+
+State 51
+
+   19 declaration_list: declaration_list . declaration
+   28 block: OPENBLOCK declaration_list . statement_list CLOSEBLOCK
+
+    PRINT       shift, and go to state 20
+    RETURN      shift, and go to state 21
+    CONTINUE    shift, and go to state 22
+    IF          shift, and go to state 23
+    WHILE       shift, and go to state 24
+    OPENBLOCK   shift, and go to state 25
+    VAR         shift, and go to state 2
+    IDENTIFIER  shift, and go to state 8
+
+    statement_list    go to state 76
+    statement         go to state 52
+    block             go to state 27
+    assign_statement  go to state 28
+    return_statement  go to state 29
+    print_statement   go to state 30
+    null_statement    go to state 31
+    if_statement      go to state 32
+    while_statement   go to state 33
+    declaration       go to state 77
+    identifier        go to state 34
+
+
+State 52
+
+    6 statement_list: statement .
+
+    $default  reduce using rule 6 (statement_list)
+
+
+State 53
+
+   18 declaration_list: declaration .
+
+    $default  reduce using rule 18 (declaration_list)
+
+
+State 54
+
+   30 assign_statement: identifier ':' . '=' expression
+
+    '='  shift, and go to state 78
+
+
+State 55
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+   49           | '-' expression .
+
+    $default  reduce using rule 49 (expression)
+
+
+State 56
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+   50           | '~' expression .
+
+    $default  reduce using rule 50 (expression)
+
+
+State 57
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+   51           | '(' expression . ')'
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+    ')'     shift, and go to state 79
+
+
+State 58
+
+    9 print_list: print_list ',' . print_item
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    STRING      shift, and go to state 38
+    '('         shift, and go to state 39
+
+    expression  go to state 41
+    print_item  go to state 80
+    identifier  go to state 43
+    number      go to state 44
+    string      go to state 45
+
+
+State 59
+
+   40 expression: expression '|' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 81
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 60
+
+   41 expression: expression '^' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 82
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 61
+
+   42 expression: expression '&' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 83
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 62
+
+   43 expression: expression LSHIFT . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 84
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 63
+
+   44 expression: expression RSHIFT . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 85
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 64
+
+   45 expression: expression '+' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 86
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 65
+
+   46 expression: expression '-' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 87
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 66
+
+   47 expression: expression '*' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 88
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 67
+
+   48 expression: expression '/' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 89
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 68
+
+   54 expression: identifier '(' . argument_list ')'
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    $default  reduce using rule 15 (argument_list)
+
+    expression_list  go to state 90
+    argument_list    go to state 91
+    expression       go to state 92
+    identifier       go to state 43
+    number           go to state 44
+
+
+State 69
+
+   34 if_statement: IF relation THEN . statement
+   35             | IF relation THEN . statement ELSE statement
+
+    PRINT       shift, and go to state 20
+    RETURN      shift, and go to state 21
+    CONTINUE    shift, and go to state 22
+    IF          shift, and go to state 23
+    WHILE       shift, and go to state 24
+    OPENBLOCK   shift, and go to state 25
+    IDENTIFIER  shift, and go to state 8
+
+    statement         go to state 93
+    block             go to state 27
+    assign_statement  go to state 28
+    return_statement  go to state 29
+    print_statement   go to state 30
+    null_statement    go to state 31
+    if_statement      go to state 32
+    while_statement   go to state 33
+    identifier        go to state 34
+
+
+State 70
+
+   37 relation: expression '=' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 94
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 71
+
+   38 relation: expression '<' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 95
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 72
+
+   39 relation: expression '>' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 96
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 73
+
+   36 while_statement: WHILE relation DO . statement
+
+    PRINT       shift, and go to state 20
+    RETURN      shift, and go to state 21
+    CONTINUE    shift, and go to state 22
+    IF          shift, and go to state 23
+    WHILE       shift, and go to state 24
+    OPENBLOCK   shift, and go to state 25
+    IDENTIFIER  shift, and go to state 8
+
+    statement         go to state 97
+    block             go to state 27
+    assign_statement  go to state 28
+    return_statement  go to state 29
+    print_statement   go to state 30
+    null_statement    go to state 31
+    if_statement      go to state 32
+    while_statement   go to state 33
+    identifier        go to state 34
+
+
+State 74
+
+   29 block: OPENBLOCK statement_list CLOSEBLOCK .
+
+    $default  reduce using rule 29 (block)
+
+
+State 75
+
+    7 statement_list: statement_list statement .
+
+    $default  reduce using rule 7 (statement_list)
+
+
+State 76
+
+    7 statement_list: statement_list . statement
+   28 block: OPENBLOCK declaration_list statement_list . CLOSEBLOCK
+
+    PRINT       shift, and go to state 20
+    RETURN      shift, and go to state 21
+    CONTINUE    shift, and go to state 22
+    IF          shift, and go to state 23
+    WHILE       shift, and go to state 24
+    OPENBLOCK   shift, and go to state 25
+    CLOSEBLOCK  shift, and go to state 98
+    IDENTIFIER  shift, and go to state 8
+
+    statement         go to state 75
+    block             go to state 27
+    assign_statement  go to state 28
+    return_statement  go to state 29
+    print_statement   go to state 30
+    null_statement    go to state 31
+    if_statement      go to state 32
+    while_statement   go to state 33
+    identifier        go to state 34
+
+
+State 77
+
+   19 declaration_list: declaration_list declaration .
+
+    $default  reduce using rule 19 (declaration_list)
+
+
+State 78
+
+   30 assign_statement: identifier ':' '=' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 99
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 79
+
+   51 expression: '(' expression ')' .
+
+    $default  reduce using rule 51 (expression)
+
+
+State 80
+
+    9 print_list: print_list ',' print_item .
+
+    $default  reduce using rule 9 (print_list)
+
+
+State 81
+
+   40 expression: expression . '|' expression
+   40           | expression '|' expression .
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 40 (expression)
+
+
+State 82
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   41           | expression '^' expression .
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 41 (expression)
+
+
+State 83
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   42           | expression '&' expression .
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 42 (expression)
+
+
+State 84
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   43           | expression LSHIFT expression .
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '+'  shift, and go to state 64
+    '-'  shift, and go to state 65
+    '*'  shift, and go to state 66
+    '/'  shift, and go to state 67
+
+    $default  reduce using rule 43 (expression)
+
+
+State 85
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   44           | expression RSHIFT expression .
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '+'  shift, and go to state 64
+    '-'  shift, and go to state 65
+    '*'  shift, and go to state 66
+    '/'  shift, and go to state 67
+
+    $default  reduce using rule 44 (expression)
+
+
+State 86
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   45           | expression '+' expression .
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '*'  shift, and go to state 66
+    '/'  shift, and go to state 67
+
+    $default  reduce using rule 45 (expression)
+
+
+State 87
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   46           | expression '-' expression .
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '*'  shift, and go to state 66
+    '/'  shift, and go to state 67
+
+    $default  reduce using rule 46 (expression)
+
+
+State 88
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   47           | expression '*' expression .
+   48           | expression . '/' expression
+
+    $default  reduce using rule 47 (expression)
+
+
+State 89
+
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+   48           | expression '/' expression .
+
+    $default  reduce using rule 48 (expression)
+
+
+State 90
+
+   11 expression_list: expression_list . ',' expression
+   14 argument_list: expression_list .
+
+    ','  shift, and go to state 100
+
+    $default  reduce using rule 14 (argument_list)
+
+
+State 91
+
+   54 expression: identifier '(' argument_list . ')'
+
+    ')'  shift, and go to state 101
+
+
+State 92
+
+   10 expression_list: expression .
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 10 (expression_list)
+
+
+State 93
+
+   34 if_statement: IF relation THEN statement .
+   35             | IF relation THEN statement . ELSE statement
+
+    ELSE  shift, and go to state 102
+
+    ELSE      [reduce using rule 34 (if_statement)]
+    $default  reduce using rule 34 (if_statement)
+
+
+State 94
+
+   37 relation: expression '=' expression .
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 37 (relation)
+
+
+State 95
+
+   38 relation: expression '<' expression .
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 38 (relation)
+
+
+State 96
+
+   39 relation: expression '>' expression .
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 39 (relation)
+
+
+State 97
+
+   36 while_statement: WHILE relation DO statement .
+
+    $default  reduce using rule 36 (while_statement)
+
+
+State 98
+
+   28 block: OPENBLOCK declaration_list statement_list CLOSEBLOCK .
+
+    $default  reduce using rule 28 (block)
+
+
+State 99
+
+   30 assign_statement: identifier ':' '=' expression .
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 30 (assign_statement)
+
+
+State 100
+
+   11 expression_list: expression_list ',' . expression
+
+    '-'         shift, and go to state 35
+    '~'         shift, and go to state 36
+    NUMBER      shift, and go to state 37
+    IDENTIFIER  shift, and go to state 8
+    '('         shift, and go to state 39
+
+    expression  go to state 103
+    identifier  go to state 43
+    number      go to state 44
+
+
+State 101
+
+   54 expression: identifier '(' argument_list ')' .
+
+    $default  reduce using rule 54 (expression)
+
+
+State 102
+
+   35 if_statement: IF relation THEN statement ELSE . statement
+
+    PRINT       shift, and go to state 20
+    RETURN      shift, and go to state 21
+    CONTINUE    shift, and go to state 22
+    IF          shift, and go to state 23
+    WHILE       shift, and go to state 24
+    OPENBLOCK   shift, and go to state 25
+    IDENTIFIER  shift, and go to state 8
+
+    statement         go to state 104
+    block             go to state 27
+    assign_statement  go to state 28
+    return_statement  go to state 29
+    print_statement   go to state 30
+    null_statement    go to state 31
+    if_statement      go to state 32
+    while_statement   go to state 33
+    identifier        go to state 34
+
+
+State 103
+
+   11 expression_list: expression_list ',' expression .
+   40 expression: expression . '|' expression
+   41           | expression . '^' expression
+   42           | expression . '&' expression
+   43           | expression . LSHIFT expression
+   44           | expression . RSHIFT expression
+   45           | expression . '+' expression
+   46           | expression . '-' expression
+   47           | expression . '*' expression
+   48           | expression . '/' expression
+
+    '|'     shift, and go to state 59
+    '^'     shift, and go to state 60
+    '&'     shift, and go to state 61
+    LSHIFT  shift, and go to state 62
+    RSHIFT  shift, and go to state 63
+    '+'     shift, and go to state 64
+    '-'     shift, and go to state 65
+    '*'     shift, and go to state 66
+    '/'     shift, and go to state 67
+
+    $default  reduce using rule 11 (expression_list)
+
+
+State 104
+
+   35 if_statement: IF relation THEN statement ELSE statement .
+
+    $default  reduce using rule 35 (if_statement)

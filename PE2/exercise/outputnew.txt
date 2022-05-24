@@ -1,0 +1,5 @@
+  10  547 3656 ../testcases/test_a1.txt
+0 0 0 ../testcases/test_a2.txt
+1 1 4 ../testcases/test_a3.txt
+1 2 8 ../testcases/test_a4.txt
+ 1  6 49 ../testcases/test_a5.txt
